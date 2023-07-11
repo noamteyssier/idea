@@ -13,6 +13,9 @@ of terms and genes as an interactive force-directed graph.
 This uses [`pyvis`](https://pyvis.readthedocs.io/en/latest/tutorial.html) as the
 force-directed graph backend.
 
+This uses [`ggetrs`](https://noamteyssier.github.io/ggetrs) to perform the gene
+set enrichment using `Enrichr`'s API.
+
 ## Installation
 
 You can install this like other python packages using `pip`:
