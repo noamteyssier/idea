@@ -72,3 +72,5 @@ id = idea.IDEA(
 # Write HTML of network to `network.html`
 id.visualize("network.html")
 ```
+
+![network.png](assets/2023-07-11_14-33.png)
