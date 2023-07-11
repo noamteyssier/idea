@@ -22,6 +22,8 @@ def run_go(
             - `BP`: `GO_Biological_Process_2023`
             - `CC`: `GO_Cellular_Component_2023`
             - `MF`: `GO_Molecular_Function_2023`
+            - `msigdb`: `MSigDB_Hallmark_2020`
+            - `kegg`: `KEGG_2021_Human`
     threshold : Optional[float], optional
         The threshold to use for filtering the gene ontology terms
         by p-value. If `None`, no filtering is done.
@@ -36,6 +38,10 @@ def run_go(
         library = "GO_Cellular_Component_2023"
     elif library == "MF":
         library = "GO_Molecular_Function_2023"
+    elif library == "msigdb":
+        library = "MSigDB_Hallmark_2020"
+    elif library == "kegg":
+        library = "KEGG_2021_Human"
     
     response = gg.enrichr(
         library_name=library,
