@@ -1,13 +1,15 @@
 [tool.poetry]
 name = "idea-bio"
-version = "0.1.1"
-description = "Integrated Diffferential Expression and Annotation"
+version = "0.1.2"
+description = "Integrated Differential Expression and Annotation"
 authors = ["Noam Teyssier"]
 license = "MIT"
 readme = "README.md"
 packages = [
   { include = "idea" }
 ]
+repository = "https://github.com/noamteyssier/idea"
+keywords = ["bioinformatics", "differential expression", "annotation", "networks"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
