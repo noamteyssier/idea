@@ -11,10 +11,8 @@ and visualize the [bipartite graph](https://en.wikipedia.org/wiki/Bipartite_grap
 of terms and genes as an interactive force-directed graph.
 
 This uses [`pyvis`](https://pyvis.readthedocs.io/en/latest/tutorial.html) as the
-force-directed graph backend.
-
-This uses [`ggetrs`](https://noamteyssier.github.io/ggetrs) to perform the gene
-set enrichment using `Enrichr`'s API.
+force-directed graph backend and [`ggetrs`](https://noamteyssier.github.io/ggetrs)
+to perform the gene set enrichment using `Enrichr`'s API.
 
 ## Installation
 
