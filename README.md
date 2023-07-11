@@ -2,7 +2,7 @@
 
 ![logo](assets/logo.png)
 
-Integrated Differential Expression and Annotation
+**I**ntegrated **D**ifferential **E**xpression and **A**nnotation
 
 ## Introduction
 
