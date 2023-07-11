@@ -1,5 +1,7 @@
 # IDEA
 
+![logo](assets/logo.png)
+
 Integrated Differential Expression and Annotation
 
 ## Introduction
