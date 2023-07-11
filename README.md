@@ -73,4 +73,11 @@ id = idea.IDEA(
 id.visualize("network.html")
 ```
 
-![network.png](assets/2023-07-11_14-33.png)
+### Visualization
+
+We can then visualize and interact with our network by opening
+the created `*.html` in our favorite browser.
+
+Here is a static image of an example network:
+
+![network.png](assets/example_network.png)
