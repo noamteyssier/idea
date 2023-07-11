@@ -1,4 +1,3 @@
-
 import logging
 from typing import Optional
 import numpy as np
@@ -6,6 +5,7 @@ import pandas as pd
 import networkx as nx
 from pyvis.network import Network
 from ._utils import _array_to_hex
+
 
 class IDEA:
     def __init__(
@@ -114,22 +114,14 @@ class IDEA:
     def _validate_degs(self):
         for col in [self._deg_size_name, self._deg_gene_name]:
             if col not in self._degs.columns:
-                raise ValueError(
-                    f"Column '{col}' not found in DEGs."
-                )
-        logging.info(
-            f"Found {self._degs.shape[0]} differentially expressed genes."
-        )
+                raise ValueError(f"Column '{col}' not found in DEGs.")
+        logging.info(f"Found {self._degs.shape[0]} differentially expressed genes.")
 
     def _validate_go(self):
         for col in [self._go_size_name, self._go_term_name, self._go_overlap_name]:
             if col not in self._go.columns:
-                raise ValueError(
-                    f"Column '{col}' not found in GO terms."
-                )
-        logging.info(
-            f"Found {self._go.shape[0]} gene ontology terms."
-        )
+                raise ValueError(f"Column '{col}' not found in GO terms.")
+        logging.info(f"Found {self._go.shape[0]} gene ontology terms.")
 
     def _build_deg_attributes(self):
         genes = self._degs[self._deg_gene_name].values
@@ -147,7 +139,7 @@ class IDEA:
             attributes = -np.log10(attributes)
 
         self._term_attributes = {
-            term: {'attribute': attribute, 'overlap': overlap}
+            term: {"attribute": attribute, "overlap": overlap}
             for term, attribute, overlap in zip(terms, attributes, overlaps)
         }
 
@@ -157,12 +149,14 @@ class IDEA:
         """
         self.graph.add_node(
             term,
-            cond='term',
+            cond="term",
             shape="square",
-            attr=self._term_attributes[term]['attribute'],
-            size=self._term_attributes[term]['attribute'],
-            mass=self._term_attributes[term]['attribute'] if self._set_go_mass else 1.0,
-            color=self._term_color if self._term_color is not None else self._edge_color,
+            attr=self._term_attributes[term]["attribute"],
+            size=self._term_attributes[term]["attribute"],
+            mass=self._term_attributes[term]["attribute"] if self._set_go_mass else 1.0,
+            color=self._term_color
+            if self._term_color is not None
+            else self._edge_color,
             color_border="black",
         )
 
@@ -172,8 +166,8 @@ class IDEA:
         """
         self.graph.add_node(
             gene,
-            cond='gene',
-            shape='circle',
+            cond="gene",
+            shape="circle",
             attr=self._gene_attributes[gene],
             size=self._gene_attributes[gene],
             mass=self._gene_attributes[gene] if self._set_deg_mass else 1.0,
@@ -189,17 +183,17 @@ class IDEA:
         distribution = []
 
         for node in self.graph.nodes(data=True):
-            if node[1]['cond'] == cond:
-                distribution.append(node[1]['attr'])
+            if node[1]["cond"] == cond:
+                distribution.append(node[1]["attr"])
         distribution = np.array(distribution)
 
-        palette = self._term_palette if cond == 'term' else self._gene_palette
+        palette = self._term_palette if cond == "term" else self._gene_palette
         hex_colors = _array_to_hex(distribution, palette)
 
         idx = 0
         for node in self.graph.nodes(data=True):
-            if node[1]['cond'] == cond:
-                node[1]['color'] = hex_colors[idx]
+            if node[1]["cond"] == cond:
+                node[1]["color"] = hex_colors[idx]
                 idx += 1
 
     def _build_bipartite_graph(self):
@@ -209,7 +203,7 @@ class IDEA:
         self.graph = nx.Graph()
         for term in self._term_attributes:
             self._insert_go_term(term)
-            for gene in self._term_attributes[term]['overlap']:
+            for gene in self._term_attributes[term]["overlap"]:
                 self._insert_deg_gene(gene)
                 self._insert_edge(term, gene)
 
@@ -221,12 +215,12 @@ class IDEA:
         self._build_statistics()
 
     def _build_statistics(self):
-        self._num_terms = len([
-            n for n in self.graph.nodes(data=True) if n[1]['cond'] == 'term'
-        ])
-        self._num_genes = len([
-            n for n in self.graph.nodes(data=True) if n[1]['cond'] == 'gene'
-        ])
+        self._num_terms = len(
+            [n for n in self.graph.nodes(data=True) if n[1]["cond"] == "term"]
+        )
+        self._num_genes = len(
+            [n for n in self.graph.nodes(data=True) if n[1]["cond"] == "gene"]
+        )
         self._num_edges = len(self.graph.edges)
 
         logging.info(
@@ -242,7 +236,7 @@ class IDEA:
         physics_toggle: bool = True,
         physics: bool = True,
         notebook: bool = False,
-        **kwargs
+        **kwargs,
     ):
         """
         Creates the pyvis visualization. For more information on the
@@ -257,16 +251,10 @@ class IDEA:
         kwargs
             Additional keyword arguments to pass to `pyvis.network.Network`.
         """
-        net = Network(
-            height=height,
-            width=width,
-            notebook=notebook,
-            **kwargs
-        )
+        net = Network(height=height, width=width, notebook=notebook, **kwargs)
         net.from_nx(self.graph)
         net.toggle_physics(physics_toggle)
         if physics_toggle:
-            net.show_buttons(filter_=['physics'])
+            net.show_buttons(filter_=["physics"])
         net.write_html(filepath)
         logging.info(f"Visualization saved to {filepath}.")
-

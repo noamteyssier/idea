@@ -1,7 +1,7 @@
-
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import to_hex
+
 
 def _array_to_hex(
     array: np.ndarray,

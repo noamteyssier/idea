@@ -1,8 +1,8 @@
-
 from typing import Optional, Union
 import numpy as np
 import pandas as pd
 import ggetrs as gg
+
 
 def run_go(
     genes: Union[list, np.ndarray],
@@ -42,7 +42,7 @@ def run_go(
         library = "MSigDB_Hallmark_2020"
     elif library == "kegg":
         library = "KEGG_2021_Human"
-    
+
     response = gg.enrichr(
         library_name=library,
         gene_list=[g for g in genes],
