@@ -1,6 +1,6 @@
 # IDEA
 
-![logo](https://github.com/noamteyssier/idea/blob/main/assets/logo.png)
+![logo](https://github.com/noamteyssier/idea/blob/main/assets/logo.png?raw=true)
 
 **I**ntegrated **D**ifferential **E**xpression and **A**nnotation
 
@@ -83,4 +83,4 @@ the created `*.html` in our favorite browser.
 
 Here is a static image of an example network:
 
-![network.png](https://github.com/noamteyssier/idea/blob/main/assets/example_network.png)
+![network.png](https://github.com/noamteyssier/idea/blob/main/assets/example_network.png?raw=true)
