@@ -230,9 +230,9 @@ class IDEA:
 
     def visualize(
         self,
+        filepath: str = "network.html",
         height: str = "1000px",
         width: str = "100%",
-        filepath: str = "network.html",
         physics_toggle: bool = True,
         physics: bool = True,
         notebook: bool = False,
