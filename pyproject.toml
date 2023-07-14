@@ -12,8 +12,8 @@ repository = "https://github.com/noamteyssier/idea"
 keywords = ["bioinformatics", "differential expression", "annotation", "networks"]
 
 [tool.poetry.dependencies]
-python = "^3.11"
-numpy = "^1.25.1"
+python = "^3.8"
+numpy = "^1.24.0"
 pandas = "^2.0.3"
 networkx = "^3.1"
 pyvis = "^0.3.2"
