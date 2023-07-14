@@ -34,4 +34,4 @@ html_static_path = ["_static"]
 
 # -- Sys Path ----------------------------------------------------------------
 import sys
-sys.path.insert(0, "../../")
+sys.path.insert(0, "../")
