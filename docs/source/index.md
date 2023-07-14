@@ -8,5 +8,6 @@
 
 installation
 usage
+recipes/index
 api
 ```
