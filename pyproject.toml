@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "idea-bio"
-version = "0.1.6"
+version = "0.1.7"
 description = "Integrated Differential Expression and Annotation"
 authors = ["Noam Teyssier"]
 license = "MIT"
@@ -24,6 +24,10 @@ matplotlib = "^3.7.2"
 black = "^23.7.0"
 pytest = "^7.4.0"
 jupyterlab = "^4.0.2"
+sphinx = "^6"
+myst-parser = "^2.0.0"
+sphinx-book-theme = "^1.0.1"
+sphinx-copybutton = "^0.5.2"
 
 [build-system]
 requires = ["poetry-core"]
