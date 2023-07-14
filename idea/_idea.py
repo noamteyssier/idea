@@ -220,7 +220,9 @@ class IDEA:
             color_border="black",
             attr=self._gene_attributes[gene]["attr_color"],
             size=self._gene_attributes[gene]["attr_size"],
-            mass=self._gene_attributes[gene]["attr_size"] if self._set_deg_mass else 1.0,
+            mass=self._gene_attributes[gene]["attr_size"]
+            if self._set_deg_mass
+            else 1.0,
             font=self._font_shorthand,
         )
 
@@ -229,8 +231,8 @@ class IDEA:
         Inserts an edge between a GO term and a DEG gene into the graph.
         """
         self.graph.add_edge(
-            term, 
-            gene, 
+            term,
+            gene,
             color=self._edge_color,
             weight=self._edge_width,
         )
