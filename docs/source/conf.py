@@ -31,3 +31,7 @@ exclude_patterns = []
 
 html_theme = "sphinx_book_theme"
 html_static_path = ["_static"]
+
+# -- Sys Path ----------------------------------------------------------------
+import sys
+sys.path.insert(0, "../../")
