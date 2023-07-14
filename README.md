@@ -13,3 +13,8 @@ of terms and genes as an interactive force-directed graph.
 This uses [`pyvis`](https://pyvis.readthedocs.io/en/latest/tutorial.html) as the
 force-directed graph backend and [`ggetrs`](https://noamteyssier.github.io/ggetrs)
 to perform the gene set enrichment using the [`Enrichr`](https://maayanlab.cloud/Enrichr/) API.
+
+## Installation and Usage
+
+Checkout my [documentation](https://idea-bio.readthedocs.io/en/latest/index.html)
+for information on installation, usage, and recipes for analysis.
