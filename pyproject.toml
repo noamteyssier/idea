@@ -27,17 +27,9 @@ pytest = "^7.4.0"
 jupyterlab = "^4.0.2"
 sphinx = "^6"
 myst-parser = "^2.0.0"
-sphinx-book-theme = "^1.0.1"
 sphinx-copybutton = "^0.5.2"
+pydata-sphinx-theme = "^0.13.3"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[project.optional-dependencies]
-doc = [
-  "sphinx",
-  "myst-parser",
-  "sphinx-book-theme",
-  "sphinx-copybutton",
-]
