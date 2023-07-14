@@ -9,6 +9,7 @@ packages = [
   { include = "idea" }
 ]
 repository = "https://github.com/noamteyssier/idea"
+documentation = "https://idea-bio.readthedocs.io/en/latest/usage.html"
 keywords = ["bioinformatics", "differential expression", "annotation", "networks"]
 
 [tool.poetry.dependencies]
