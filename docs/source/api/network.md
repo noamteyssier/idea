@@ -12,6 +12,8 @@
 .. autosummary::
     :nosignatures:
     :toctree: ../generated/
+    :recursive:
 
     IDEA
+    IDEA.visualize
 ```
