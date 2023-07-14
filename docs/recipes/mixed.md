@@ -49,6 +49,6 @@ id.visualize("mixed_network.html")
 ```
 
 ```{raw} html
-:file: ../../../assets/mixed_network.html
+:file: ../../assets/mixed_network.html
 ```
 

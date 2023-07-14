@@ -45,5 +45,5 @@ id.visualize("depleted_network.html")
 ```
 
 ```{raw} html
-:file: ../../../assets/depleted_network.html
+:file: ../../assets/depleted_network.html
 ```

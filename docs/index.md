@@ -1,5 +1,5 @@
 # [ IDEA ]
-```{include} ../../README.md
+```{include} ../README.md
 :start-line: 2
 ```
 ```{toctree}

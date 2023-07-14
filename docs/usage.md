@@ -101,6 +101,6 @@ See further instructions on configuration or check out the `IDEA` API for its co
 options.
 
 ```{raw} html
-:file: ../../assets/example_network.html
+:file: ../assets/example_network.html
 ```
 
