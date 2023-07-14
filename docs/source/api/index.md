@@ -97,6 +97,10 @@ session.
 You can open this file up in your favorite browser to interact with the network that is
 created.
 
+```{raw} html
+:file: ../../../assets/example_network.html
+```
+
 ```{toctree}
 :maxdepth: 2
 :hidden: true
