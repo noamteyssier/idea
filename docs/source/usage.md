@@ -1,5 +1,4 @@
-
-# API
+# Usage
 
 You can import the module using its shorthand name: `idea`
 
@@ -84,8 +83,8 @@ That's it!
 
 ### Visualizing the Network
 
-We can then create an interactive HTML visualization of our network using the `visualize`
-method of the `IDEA` class:
+We can then create an interactive HTML visualization (powered by [pyvis](https://pyvis.readthedocs.io/en/latest/#)) 
+of our network using the `visualize` method of the `IDEA` class:
 
 ```python
 id.visualize("network.html")
@@ -93,19 +92,15 @@ id.visualize("network.html")
 
 This will create a file `network.html` in the current working directory of the python
 session. 
-
 You can open this file up in your favorite browser to interact with the network that is
 created.
 
+By default the nodes are sized and colored by their significance and shaped by their
+term/gene class.
+See further instructions on configuration or check out the `IDEA` API for its configuration
+options.
+
 ```{raw} html
-:file: ../../../assets/example_network.html
+:file: ../../assets/example_network.html
 ```
 
-```{toctree}
-:maxdepth: 2
-:hidden: true
-:noindex:
-
-gsea
-network
-```

@@ -9,5 +9,6 @@ Welcome to the `IDEA` docs page!
 :maxdepth: 2
 
 installation
-api/index
+usage
+api
 ```
