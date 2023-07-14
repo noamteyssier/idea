@@ -8,5 +8,6 @@ Welcome to the `IDEA` docs page!
 :hidden: true
 :maxdepth: 2
 
+installation
 api/index
 ```
