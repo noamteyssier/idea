@@ -32,3 +32,11 @@ sphinx-copybutton = "^0.5.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[project.optional-dependencies]
+doc = [
+  "sphinx",
+  "myst-parser",
+  "sphinx-book-theme",
+  "sphinx-copybutton",
+]
