@@ -1,4 +1,4 @@
-## Mixed DEGs
+# Mixed DEGs
 
 Sometimes more data is more better - let's run an analysis where we do a GSEA using **both**
 enriched and depleted DEGs.
