@@ -1,9 +1,7 @@
 # [ IDEA ]
 ```{include} ../../README.md
+:start-line: 2
 ```
-
-Welcome to the `IDEA` docs page!
-
 ```{toctree}
 :hidden: true
 :maxdepth: 2
