@@ -1,10 +1,10 @@
 # IDEA
 
-![logo](https://github.com/noamteyssier/idea/blob/main/assets/logo.png?raw=true)
+## Integrated Differential Expression and Annotation
 
-**I**ntegrated **D**ifferential **E**xpression and **A**nnotation
-
-## Introduction
+<p align="center">
+    <img src="https://github.com/noamteyssier/idea/blob/main/assets/logo.png?raw=true" width="50%" />
+</p>
 
 This is a python module to perform GO analysis using [Enrichr](https://maayanlab.cloud/Enrichr/)
 and visualize the [bipartite graph](https://en.wikipedia.org/wiki/Bipartite_graph)
