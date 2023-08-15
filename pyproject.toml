@@ -20,6 +20,7 @@ networkx = "^3.1"
 pyvis = "^0.3.2"
 ggetrs = "^0.1.73"
 matplotlib = "^3.7.2"
+beautifulsoup4 = "^4.12.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
