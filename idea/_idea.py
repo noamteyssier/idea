@@ -162,9 +162,9 @@ class IDEA:
         logging.info(f"Found {self._go.shape[0]} gene ontology terms.")
 
     def _build_deg_attributes(self):
-        genes = self._degs[self._deg_gene_name].values
-        sizes = self._degs[self._deg_size_name].values
-        colors = self._degs[self._deg_color_name].values
+        genes = self._degs[self._deg_gene_name].values.astype(str)
+        sizes = self._degs[self._deg_size_name].values.astype(float)
+        colors = self._degs[self._deg_color_name].values.astype(float)
         if self._neg_log_xform_degs_size:
             sizes = -np.log10(sizes)
         if self._absolute_degs_color:
@@ -177,9 +177,9 @@ class IDEA:
         }
 
     def _build_go_attributes(self):
-        terms = self._go[self._go_term_name].values
+        terms = self._go[self._go_term_name].values.astype(str)
         overlaps = self._go[self._go_overlap_name].values
-        attributes = self._go[self._go_size_name].values
+        attributes = self._go[self._go_size_name].values.astype(float)
 
         if self._neg_log_xform_go:
             attributes = -np.log10(attributes)
