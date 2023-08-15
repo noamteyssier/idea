@@ -17,7 +17,7 @@ There are two relevant APIs in this module.
     :nosignatures:
     :toctree: generated/
 
-    run_go
+    run_gsea
 ```
 
 ## Network Construction and Visualization

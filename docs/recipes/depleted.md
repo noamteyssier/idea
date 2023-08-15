@@ -28,7 +28,7 @@ sig_degs = frame[
 geneset = sig_degs.gene.values
 
 # Run the GSEA
-gsea = idea.run_go(
+gsea = idea.run_gsea(
     geneset,
     threshold=0.05,
     library="BP",

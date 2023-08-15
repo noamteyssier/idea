@@ -27,12 +27,12 @@ This module allows you to perform a GSEA directly from your python session.
 The GSEA is performed using [`Enrichr`](https://maayanlab.cloud/Enrichr/)
 whose API is accessed using [`ggetrs`](https://noamteyssier.github.io/ggetrs).
 
-The function for running the GSEA is `idea.run_go`:
+The function for running the GSEA is `idea.run_gsea`:
 
 #### GSEA Usage
 
 ```python
-gsea = idea.run_go(
+gsea = idea.run_gsea(
     geneset,
     threshold=0.05,
     library="BP"
