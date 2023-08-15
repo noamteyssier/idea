@@ -5,6 +5,7 @@ import pandas as pd
 import networkx as nx
 from pyvis.network import Network
 from ._utils import _array_to_hex
+from bs4 import BeautifulSoup
 
 
 class IDEA:
@@ -305,6 +306,7 @@ class IDEA:
         width: str = "100%",
         notebook: bool = False,
         show_physics_options: bool = False,
+        include_save_png: bool = False,
         **kwargs,
     ):
         """
@@ -328,4 +330,43 @@ class IDEA:
                 buttons.append("physics")
             net.show_buttons(filter_=buttons)
         net.write_html(filepath)
+        if include_save_png:
+            self._inject_save_png(filepath)
         logging.info(f"Visualization saved to {filepath}.")
+
+    def _inject_save_png(self, filepath: str):
+        """
+        Injects the save png function into the HTML file.
+        """
+        fp = open(filepath, "r")
+        soup = BeautifulSoup(fp, "html.parser")
+
+        # define the save png button
+        input_element = soup.new_tag(
+            "input",
+            type="button",
+            value="Download image",
+            onclick="document.getElementById('canvasImg').click();",
+        )
+        a_element = soup.new_tag("a", id="canvasImg", download="idea_network")
+
+        # insert the save png button
+        soup.find("div", class_="card").append(input_element)
+        soup.find("div", class_="card").append(a_element)
+
+        # define the save png function
+        injectable_js = """
+        var network = drawGraph();
+        network.on("afterDrawing", function (ctx) {
+            var dataURL = ctx.canvas.toDataURL();
+            document.getElementById('canvasImg').href = dataURL;
+        });"""
+
+        # insert the save png function
+        js_script = soup.find("script", type="text/javascript").string
+        js_script = js_script.replace("drawGraph();", injectable_js)
+        soup.find("script", type="text/javascript").string = js_script
+
+        # write the new HTML file
+        with open(filepath, "w") as f:
+            f.write(soup.prettify())
