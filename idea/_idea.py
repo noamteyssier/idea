@@ -306,6 +306,7 @@ class IDEA:
         width: str = "100%",
         notebook: bool = False,
         show_physics_options: bool = False,
+        include_save_png: bool = False,
         **kwargs,
     ):
         """
@@ -329,7 +330,8 @@ class IDEA:
                 buttons.append("physics")
             net.show_buttons(filter_=buttons)
         net.write_html(filepath)
-        self._inject_save_png(filepath)
+        if include_save_png:
+            self._inject_save_png(filepath)
         logging.info(f"Visualization saved to {filepath}.")
 
     def _inject_save_png(self, filepath: str):
