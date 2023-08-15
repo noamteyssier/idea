@@ -31,6 +31,13 @@ exclude_patterns = []
 
 html_theme = "pydata_sphinx_theme"
 html_static_path = ["_static"]
+html_context = {
+   "default_mode": "light"
+}
+html_theme_options = {
+    "navbar_end": ["navbar-icon-links"]
+}
+
 
 # -- Sys Path ----------------------------------------------------------------
 import sys
