@@ -4,10 +4,11 @@ import pandas as pd
 import ggetrs as gg
 
 
-def run_go(
+def run_gsea(
     genes: Union[list, np.ndarray],
     library: str = "BP",
     threshold: Optional[float] = 0.05,
+    background: Optional[Union[list, np.ndarray]] = None,
 ) -> pd.DataFrame:
     """
     Run gene ontology analysis.
@@ -27,6 +28,8 @@ def run_go(
     threshold : Optional[float], optional
         The threshold to use for filtering the gene ontology terms
         by p-value. If `None`, no filtering is done.
+    background : Optional[Union[list, np.ndarray]], optional
+        The background genes to use for the gene ontology analysis.
 
     Returns
     -------
@@ -43,10 +46,17 @@ def run_go(
     elif library == "kegg":
         library = "KEGG_2021_Human"
 
-    response = gg.enrichr(
-        library_name=library,
-        gene_list=[g for g in genes],
-    )
+    if background is None:
+        response = gg.enrichr(
+            library_name=library,
+            gene_list=[g for g in genes],
+        )
+    else:
+        response = gg.enrichr_background(
+            library_name=library,
+            gene_list=[g for g in genes],
+            background_list=[b for b in background],
+        )
     frame = pd.DataFrame(response[library])
 
     if threshold is not None:

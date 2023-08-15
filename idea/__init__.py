@@ -1,4 +1,4 @@
-from ._go import run_go
+from ._go import run_gsea
 from ._idea import IDEA
 
 import logging
