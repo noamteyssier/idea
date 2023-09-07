@@ -146,7 +146,9 @@ class IDEA:
         if self._fontcolor == "auto":
             self._font_shorthand = f"{self._fontsize}px {self._fontface} black"
         else:
-            self._font_shorthand = f"{self._fontsize}px {self._fontface} {self._fontcolor}"
+            self._font_shorthand = (
+                f"{self._fontsize}px {self._fontface} {self._fontcolor}"
+            )
 
         self._validate_degs()
         self._validate_go()
@@ -231,7 +233,7 @@ class IDEA:
             font={
                 "face": self._fontface,
                 "color": self._fontcolor if self._fontcolor != "auto" else "black",
-            }
+            },
         )
 
     def _insert_edge(self, term: str, gene: str):
@@ -273,7 +275,9 @@ class IDEA:
                 node[1]["color"] = node_color
                 if cond == "gene":
                     if self._fontcolor == "auto":
-                        node[1]["font"]["color"] = "white" if _is_dark(node_color) else "black"
+                        node[1]["font"]["color"] = (
+                            "white" if _is_dark(node_color) else "black"
+                        )
                 idx += 1
 
     def _build_bipartite_graph(self):
