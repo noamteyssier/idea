@@ -9,7 +9,7 @@
 project = "IDEA"
 copyright = "2023, Noam Teyssier"
 author = "Noam Teyssier"
-release = "0.1.7"
+release = "0.2.1"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

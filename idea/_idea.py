@@ -1,11 +1,10 @@
 import logging
-from typing import Optional
+from typing import Optional, Union
 import numpy as np
 import pandas as pd
 import networkx as nx
-from pyvis.network import Network
-from ._utils import _array_to_hex
-from bs4 import BeautifulSoup
+from ._utils import _array_to_hex, _is_dark
+from pvsvg import Network
 
 
 class IDEA:
@@ -34,7 +33,7 @@ class IDEA:
         center: Optional[float] = None,
         fontsize: int = 14,
         fontface: str = "arial",
-        fontcolor: str = "black",
+        fontcolor: str = "auto",
     ):
         """
         Initialize the IDEA class.
@@ -144,7 +143,12 @@ class IDEA:
         self._fontsize = fontsize
         self._fontface = fontface
         self._fontcolor = fontcolor
-        self._font_shorthand = f"{self._fontsize}px {self._fontface} {self._fontcolor}"
+        if self._fontcolor == "auto":
+            self._font_shorthand = f"{self._fontsize}px {self._fontface} black"
+        else:
+            self._font_shorthand = (
+                f"{self._fontsize}px {self._fontface} {self._fontcolor}"
+            )
 
         self._validate_degs()
         self._validate_go()
@@ -199,6 +203,7 @@ class IDEA:
             cond="term",
             shape="square",
             title=term,
+            label=term,
             attr=self._term_attributes[term]["attribute"],
             size=self._term_attributes[term]["attribute"],
             mass=self._term_attributes[term]["attribute"] if self._set_go_mass else 1.0,
@@ -216,15 +221,19 @@ class IDEA:
         self.graph.add_node(
             gene,
             cond="gene",
-            shape="circle",
+            shape="ellipse",
             title=gene,
+            label=gene,
             color_border="black",
             attr=self._gene_attributes[gene]["attr_color"],
             size=self._gene_attributes[gene]["attr_size"],
             mass=self._gene_attributes[gene]["attr_size"]
             if self._set_deg_mass
             else 1.0,
-            font=self._font_shorthand,
+            font={
+                "face": self._fontface,
+                "color": self._fontcolor if self._fontcolor != "auto" else "black",
+            },
         )
 
     def _insert_edge(self, term: str, gene: str):
@@ -262,7 +271,13 @@ class IDEA:
         idx = 0
         for node in self.graph.nodes(data=True):
             if node[1]["cond"] == cond:
-                node[1]["color"] = hex_colors[idx]
+                node_color = hex_colors[idx]
+                node[1]["color"] = node_color
+                if cond == "gene":
+                    if self._fontcolor == "auto":
+                        node[1]["font"]["color"] = (
+                            "white" if _is_dark(node_color) else "black"
+                        )
                 idx += 1
 
     def _build_bipartite_graph(self):
@@ -302,16 +317,13 @@ class IDEA:
     def visualize(
         self,
         filepath: str = "network.html",
-        height: str = "1000px",
-        width: str = "100%",
-        notebook: bool = False,
-        show_physics_options: bool = False,
-        include_save_png: bool = False,
+        height: Union[int, str] = "800px",
+        width: Union[int, str] = "100%",
         **kwargs,
     ):
         """
-        Creates the pyvis visualization. For more information on the
-        additional keyword arguments, see `pyvis.network.Network`.
+        Creates the vis.js visualization. For more information on the
+        additional keyword arguments, see `https://github.com/noamteyssier/pvsvg`.
 
         Parameters
         ----------
@@ -320,53 +332,12 @@ class IDEA:
         width : str, optional
             The width of the visualization. By default, this is `"100%"`.
         kwargs
-            Additional keyword arguments to pass to `pyvis.network.Network`.
+            Additional keyword arguments to pass to `pvsvg.Network`.
         """
-        net = Network(height=height, width=width, notebook=notebook, **kwargs)
-        net.from_nx(self.graph)
-        if show_physics_options:
-            buttons = []
-            if show_physics_options:
-                buttons.append("physics")
-            net.show_buttons(filter_=buttons)
-        net.write_html(filepath)
-        if include_save_png:
-            self._inject_save_png(filepath)
-        logging.info(f"Visualization saved to {filepath}.")
-
-    def _inject_save_png(self, filepath: str):
-        """
-        Injects the save png function into the HTML file.
-        """
-        fp = open(filepath, "r")
-        soup = BeautifulSoup(fp, "html.parser")
-
-        # define the save png button
-        input_element = soup.new_tag(
-            "input",
-            type="button",
-            value="Download image",
-            onclick="document.getElementById('canvasImg').click();",
+        net = Network(
+            graph=self.graph,
+            height=height,
+            width=width,
         )
-        a_element = soup.new_tag("a", id="canvasImg", download="idea_network")
-
-        # insert the save png button
-        soup.find("div", class_="card").append(input_element)
-        soup.find("div", class_="card").append(a_element)
-
-        # define the save png function
-        injectable_js = """
-        var network = drawGraph();
-        network.on("afterDrawing", function (ctx) {
-            var dataURL = ctx.canvas.toDataURL();
-            document.getElementById('canvasImg').href = dataURL;
-        });"""
-
-        # insert the save png function
-        js_script = soup.find("script", type="text/javascript").string
-        js_script = js_script.replace("drawGraph();", injectable_js)
-        soup.find("script", type="text/javascript").string = js_script
-
-        # write the new HTML file
-        with open(filepath, "w") as f:
-            f.write(soup.prettify())
+        net.draw(filepath)
+        logging.info(f"Visualization saved to {filepath}.")

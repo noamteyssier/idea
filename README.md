@@ -10,8 +10,9 @@ This is a python module to perform GO analysis using [Enrichr](https://maayanlab
 and visualize the [bipartite graph](https://en.wikipedia.org/wiki/Bipartite_graph)
 of terms and genes as an interactive force-directed graph.
 
-This uses [`pyvis`](https://pyvis.readthedocs.io/en/latest/tutorial.html) as the
-force-directed graph backend and [`ggetrs`](https://noamteyssier.github.io/ggetrs)
+This uses [`pvsvg`](https://github.com/noamteyssier/pvsvg) as the python wrapper to the
+force-directed graph visualization javascript library [`vis.js`](https://visjs.github.io/vis-network/docs/network/)
+and [`ggetrs`](https://noamteyssier.github.io/ggetrs)
 to perform the gene set enrichment using the [`Enrichr`](https://maayanlab.cloud/Enrichr/) API.
 
 ## Installation and Usage
