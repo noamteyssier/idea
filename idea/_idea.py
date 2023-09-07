@@ -318,8 +318,8 @@ class IDEA:
         **kwargs,
     ):
         """
-        Creates the pyvis visualization. For more information on the
-        additional keyword arguments, see `pyvis.network.Network`.
+        Creates the vis.js visualization. For more information on the
+        additional keyword arguments, see `https://github.com/noamteyssier/pvsvg`.
 
         Parameters
         ----------
@@ -328,7 +328,7 @@ class IDEA:
         width : str, optional
             The width of the visualization. By default, this is `"100%"`.
         kwargs
-            Additional keyword arguments to pass to `pyvis.network.Network`.
+            Additional keyword arguments to pass to `pvsvg.Network`.
         """
         net = Network(
             graph=self.graph,

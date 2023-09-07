@@ -83,7 +83,7 @@ That's it!
 
 ### Visualizing the Network
 
-We can then create an interactive HTML visualization (powered by [pyvis](https://pyvis.readthedocs.io/en/latest/#)) 
+We can then create an interactive HTML visualization (powered by [pvsvg](https://github.com/noamteyssier/pvsvg)) 
 of our network using the `visualize` method of the `IDEA` class:
 
 ```python
