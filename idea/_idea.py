@@ -33,7 +33,7 @@ class IDEA:
         center: Optional[float] = None,
         fontsize: int = 14,
         fontface: str = "arial",
-        fontcolor: str = "black",
+        fontcolor: str = "auto",
     ):
         """
         Initialize the IDEA class.
@@ -143,7 +143,10 @@ class IDEA:
         self._fontsize = fontsize
         self._fontface = fontface
         self._fontcolor = fontcolor
-        self._font_shorthand = f"{self._fontsize}px {self._fontface} {self._fontcolor}"
+        if self._fontcolor == "auto":
+            self._font_shorthand = f"{self._fontsize}px {self._fontface} black"
+        else:
+            self._font_shorthand = f"{self._fontsize}px {self._fontface} {self._fontcolor}"
 
         self._validate_degs()
         self._validate_go()
@@ -216,15 +219,19 @@ class IDEA:
         self.graph.add_node(
             gene,
             cond="gene",
-            shape="circle",
+            shape="ellipse",
             title=gene,
+            label=gene,
             color_border="black",
             attr=self._gene_attributes[gene]["attr_color"],
             size=self._gene_attributes[gene]["attr_size"],
             mass=self._gene_attributes[gene]["attr_size"]
             if self._set_deg_mass
             else 1.0,
-            font=self._font_shorthand,
+            font={
+                "face": self._fontface,
+                "color": self._fontcolor if self._fontcolor != "auto" else "black",
+            }
         )
 
     def _insert_edge(self, term: str, gene: str):
@@ -262,7 +269,11 @@ class IDEA:
         idx = 0
         for node in self.graph.nodes(data=True):
             if node[1]["cond"] == cond:
-                node[1]["color"] = hex_colors[idx]
+                node_color = hex_colors[idx]
+                node[1]["color"] = node_color
+                if cond == "gene":
+                    if self._fontcolor == "auto":
+                        node[1]["font"]["color"] = "white" if _is_dark(node_color) else "black"
                 idx += 1
 
     def _build_bipartite_graph(self):

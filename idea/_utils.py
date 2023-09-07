@@ -20,3 +20,12 @@ def _array_to_hex(
     rgba = cmap(norm(array))
     hex_colors = np.array([to_hex(c) for c in rgba])
     return hex_colors
+
+# Function to calculate perceived brightness from a hex color
+def _calculate_brightness(hex_color):
+    r, g, b = tuple(int(hex_color[i:i+2], 16) for i in (1, 3, 5))
+    brightness = (r * 299 + g * 587 + b * 114) / 1000
+    return brightness
+
+def _is_dark(hex_color):
+    return _calculate_brightness(hex_color) < 128
