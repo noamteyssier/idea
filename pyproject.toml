@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "idea-bio"
-version = "0.2.1"
+version = "0.2.2"
 description = "Integrated Differential Expression and Annotation"
 authors = ["Noam Teyssier"]
 license = "MIT"
@@ -17,7 +17,7 @@ python = "^3.8"
 numpy = "^1.24.0"
 pandas = "^2.0.3"
 networkx = "^3.1"
-ggetrs = "^0.1.73"
+ggetrs = "^0.1.78"
 matplotlib = "^3.7.2"
 beautifulsoup4 = "^4.12.2"
 pvsvg = "^0.1.2"
