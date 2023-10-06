@@ -9,6 +9,7 @@ def run_gsea(
     library: str = "BP",
     threshold: Optional[float] = 0.05,
     background: Optional[Union[list, np.ndarray]] = None,
+    use_pvalue: bool = False,
 ) -> pd.DataFrame:
     """
     Run gene ontology analysis.
@@ -30,6 +31,9 @@ def run_gsea(
         by p-value. If `None`, no filtering is done.
     background : Optional[Union[list, np.ndarray]], optional
         The background genes to use for the gene ontology analysis.
+    use_pvalue : bool, optional
+        Whether to use the p-value or the adjusted p-value for filtering
+        the gene ontology terms. (Default: using the adjusted p-value)
 
     Returns
     -------
@@ -60,6 +64,9 @@ def run_gsea(
     frame = pd.DataFrame(response[library])
 
     if threshold is not None:
-        frame = frame[frame["adj_pvalue"] < threshold]
+        if use_pvalue:
+            frame = frame[frame["pvalue"] < threshold]
+        else:
+            frame = frame[frame["adj_pvalue"] < threshold]
 
     return frame
