@@ -197,7 +197,7 @@ class IDEA:
         ):
             logging.warning("Not all DEG sizes are positive. ")
             if not self._force_options:
-                logging.info("Setting neg_log_xform_degs_size to False.")
+                logging.warning("Setting neg_log_xform_degs_size to False.")
                 self._neg_log_xform_degs_size = False
             else:
                 logging.warning("Continuing with neg_log_xform_degs_size set to True.")
@@ -208,7 +208,7 @@ class IDEA:
         ):
             logging.warning("Not all DEG colors are positive. ")
             if not self._force_options:
-                logging.info("Setting neg_log_xform_degs_color to False.")
+                logging.warning("Setting neg_log_xform_degs_color to False.")
                 self._neg_log_xform_degs_color = False
             else:
                 logging.warning("Continuing with neg_log_xform_degs_color set to True.")
@@ -219,12 +219,12 @@ class IDEA:
         ):
             logging.warning("Not all DEG colors are positive")
             if not self._force_options:
-                logging.info("Setting absolute_degs_color to False.")
+                logging.warning("Setting absolute_degs_color to False.")
                 self._absolute_degs_color = False
 
                 if self._gene_palette not in DIVERGING_PALETTES:
                     logging.warning("gene_palette is not a diverging palette.")
-                    logging.info(
+                    logging.warning(
                         "Setting palette to 'seismic'. for diverging color scale."
                     )
                     self._gene_palette = "seismic"
@@ -234,7 +234,7 @@ class IDEA:
         if not np.all(self._go[self._go_size_name] > 0) and self._neg_log_xform_go:
             logging.warning("Not all GO sizes are positive. ")
             if not self._force_options:
-                logging.info("Setting neg_log_xform_go to False.")
+                logging.warning("Setting neg_log_xform_go to False.")
                 self._neg_log_xform_go = False
             else:
                 logging.warning("Continuing with neg_log_xform_go set to True.")
@@ -242,7 +242,7 @@ class IDEA:
         if self._gene_color is not None and self._gene_palette is not None:
             logging.warning("Both gene_color and gene_palette are set. ")
             if not self._force_options:
-                logging.info("Setting gene_color to None.")
+                logging.warning("Setting gene_color to None.")
                 self._gene_color = None
             else:
                 logging.warning("Continuing with gene_color set to not None.")
