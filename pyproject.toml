@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "idea-bio"
-version = "0.2.4"
+version = "0.2.5"
 description = "Integrated Differential Expression and Annotation"
 authors = ["Noam Teyssier"]
 license = "MIT"
