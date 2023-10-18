@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import networkx as nx
 from ._utils import _array_to_hex, _is_dark
+from ._constants import DIVERGING_PALETTES
 from pvsvg import Network
 
 
@@ -36,6 +37,7 @@ class IDEA:
         fontcolor: str = "auto",
         deg_node_scalar: float = 1.0,
         go_node_scalar: float = 1.0,
+        force_options: bool = False,
     ):
         """
         Initialize the IDEA class.
@@ -126,6 +128,9 @@ class IDEA:
         go_node_scalar : float, optional
             The scalar to multiply the size of the GO nodes by. By default,
             this is `1.0`.
+        force_options : bool, optional
+            Whether or not to force the options provided even if they don't match
+            expectations. By default, this is `False`.
         """
         self._degs = degs
         self._go = go
@@ -153,6 +158,7 @@ class IDEA:
         self._fontcolor = fontcolor
         self._deg_node_scalar = deg_node_scalar
         self._go_node_scalar = go_node_scalar
+        self._force_options = force_options
         if self._fontcolor == "auto":
             self._font_shorthand = f"{self._fontsize}px {self._fontface} black"
         else:
@@ -163,6 +169,7 @@ class IDEA:
         self._validate_options()
         self._validate_degs()
         self._validate_go()
+        self._warn_options()
         self._build_bipartite_graph()
 
     def _validate_degs(self):
@@ -182,6 +189,63 @@ class IDEA:
             raise ValueError("deg_node_scalar must be greater than zero.")
         if self._go_node_scalar <= 0:
             raise ValueError("go_node_scalar must be greater than zero.")
+
+    def _warn_options(self):
+        if (
+            not np.all(self._degs[self._deg_size_name] > 0)
+            and self._neg_log_xform_degs_size
+        ):
+            logging.warning("Not all DEG sizes are positive. ")
+            if not self._force_options:
+                logging.info("Setting neg_log_xform_degs_size to False.")
+                self._neg_log_xform_degs_size = False
+            else:
+                logging.warning("Continuing with neg_log_xform_degs_size set to True.")
+
+        if (
+            not np.all(self._degs[self._deg_color_name] > 0)
+            and self._neg_log_xform_degs_color
+        ):
+            logging.warning("Not all DEG colors are positive. ")
+            if not self._force_options:
+                logging.info("Setting neg_log_xform_degs_color to False.")
+                self._neg_log_xform_degs_color = False
+            else:
+                logging.warning("Continuing with neg_log_xform_degs_color set to True.")
+
+        if (
+            not np.all(self._degs[self._deg_color_name] > 0)
+            and self._absolute_degs_color
+        ):
+            logging.warning("Not all DEG colors are positive")
+            if not self._force_options:
+                logging.info("Setting absolute_degs_color to False.")
+                self._absolute_degs_color = False
+
+                if self._gene_palette not in DIVERGING_PALETTES:
+                    logging.warning("gene_palette is not a diverging palette.")
+                    logging.info(
+                        "Setting palette to 'seismic'. for diverging color scale."
+                    )
+                    self._gene_palette = "seismic"
+            else:
+                logging.warning("Continuing with absolute_degs_color set to True.")
+
+        if not np.all(self._go[self._go_size_name] > 0) and self._neg_log_xform_go:
+            logging.warning("Not all GO sizes are positive. ")
+            if not self._force_options:
+                logging.info("Setting neg_log_xform_go to False.")
+                self._neg_log_xform_go = False
+            else:
+                logging.warning("Continuing with neg_log_xform_go set to True.")
+
+        if self._gene_color is not None and self._gene_palette is not None:
+            logging.warning("Both gene_color and gene_palette are set. ")
+            if not self._force_options:
+                logging.info("Setting gene_color to None.")
+                self._gene_color = None
+            else:
+                logging.warning("Continuing with gene_color set to not None.")
 
     def _build_deg_attributes(self):
         genes = self._degs[self._deg_gene_name].values.astype(str)
