@@ -161,3 +161,8 @@ cython_debug/
 
 # Poetry
 poetry.lock
+
+# Testing Notebooks
+.ipynb_checkpoints/
+*.ipynb
+*.html
