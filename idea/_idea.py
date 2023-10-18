@@ -34,6 +34,8 @@ class IDEA:
         fontsize: int = 14,
         fontface: str = "arial",
         fontcolor: str = "auto",
+        deg_node_scalar: float = 1.0,
+        go_node_scalar: float = 1.0,
     ):
         """
         Initialize the IDEA class.
@@ -118,6 +120,12 @@ class IDEA:
             The fontface of the labels. By default, this is `"arial"`.
         fontcolor : str, optional
             The fontcolor of the labels. By default, this is `"black"`.
+        deg_node_scalar : float, optional
+            The scalar to multiply the size of the DEG nodes by. By default,
+            this is `1.0`.
+        go_node_scalar : float, optional
+            The scalar to multiply the size of the GO nodes by. By default,
+            this is `1.0`.
         """
         self._degs = degs
         self._go = go
@@ -143,6 +151,8 @@ class IDEA:
         self._fontsize = fontsize
         self._fontface = fontface
         self._fontcolor = fontcolor
+        self._deg_node_scalar = deg_node_scalar
+        self._go_node_scalar = go_node_scalar
         if self._fontcolor == "auto":
             self._font_shorthand = f"{self._fontsize}px {self._fontface} black"
         else:
@@ -150,6 +160,7 @@ class IDEA:
                 f"{self._fontsize}px {self._fontface} {self._fontcolor}"
             )
 
+        self._validate_options()
         self._validate_degs()
         self._validate_go()
         self._build_bipartite_graph()
@@ -165,6 +176,12 @@ class IDEA:
             if col not in self._go.columns:
                 raise ValueError(f"Column '{col}' not found in GO terms.")
         logging.info(f"Found {self._go.shape[0]} gene ontology terms.")
+
+    def _validate_options(self):
+        if self._deg_node_scalar <= 0:
+            raise ValueError("deg_node_scalar must be greater than zero.")
+        if self._go_node_scalar <= 0:
+            raise ValueError("go_node_scalar must be greater than zero.")
 
     def _build_deg_attributes(self):
         genes = self._degs[self._deg_gene_name].values.astype(str)
@@ -205,7 +222,7 @@ class IDEA:
             title=term,
             label=term,
             attr=self._term_attributes[term]["attribute"],
-            size=self._term_attributes[term]["attribute"],
+            size=self._term_attributes[term]["attribute"] * self._go_node_scalar,
             mass=self._term_attributes[term]["attribute"] if self._set_go_mass else 1.0,
             color=self._term_color
             if self._term_color is not None
@@ -226,7 +243,7 @@ class IDEA:
             label=gene,
             color_border="black",
             attr=self._gene_attributes[gene]["attr_color"],
-            size=self._gene_attributes[gene]["attr_size"],
+            size=self._gene_attributes[gene]["attr_size"] * self._deg_node_scalar,
             mass=self._gene_attributes[gene]["attr_size"]
             if self._set_deg_mass
             else 1.0,
