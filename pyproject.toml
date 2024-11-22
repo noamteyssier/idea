@@ -1,23 +1,26 @@
 [tool.poetry]
 name = "idea-bio"
-version = "0.2.5"
+version = "0.2.6"
 description = "Integrated Differential Expression and Annotation"
 authors = ["Noam Teyssier"]
 license = "MIT"
 readme = "README.md"
-packages = [
-  { include = "idea" }
-]
+packages = [{ include = "idea" }]
 repository = "https://github.com/noamteyssier/idea"
 documentation = "https://idea-bio.readthedocs.io/en/latest/usage.html"
-keywords = ["bioinformatics", "differential expression", "annotation", "networks"]
+keywords = [
+  "bioinformatics",
+  "differential expression",
+  "annotation",
+  "networks",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 numpy = "^1.24.0"
 pandas = "^2.0.3"
 networkx = "^3.1"
-ggetrs = "^0.1.78"
+ggetrs = "^0.1.87"
 matplotlib = "^3.7.2"
 beautifulsoup4 = "^4.12.2"
 pvsvg = "^0.1.3"
