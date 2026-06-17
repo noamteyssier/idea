@@ -1,5 +1,7 @@
 # IDEA
 
+[![DOI](https://zenodo.org/badge/665198444.svg)](https://doi.org/10.5281/zenodo.20736466)
+
 ## Integrated Differential Expression and Annotation
 
 <p align="center">
